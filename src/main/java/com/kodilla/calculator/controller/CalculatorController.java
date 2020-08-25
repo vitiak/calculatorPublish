@@ -15,7 +15,7 @@ public class CalculatorController implements ApplicationEventPublisherAware {
     private ApplicationEventPublisher publisher;
 
     @PostMapping(path = "addValues")
-    public void addValues(@RequestBody CalculatorDto calculatorDto) {
+    public double addValues(@RequestBody CalculatorDto calculatorDto) {
         System.out.println("value1 + value2 = " + calculatorDto.add(calculatorDto.getValue1(), calculatorDto.getValue2()));
         publisher.publishEvent(
                 new CalculatorRegisteredEvent(
@@ -23,10 +23,11 @@ public class CalculatorController implements ApplicationEventPublisherAware {
                         calculatorDto.getValue1(),
                         calculatorDto.getValue2(),
                         calculatorDto.getOperation()));
+        return calculatorDto.add(calculatorDto.getValue1(), calculatorDto.getValue2());
     }
 
     @PostMapping(path = "subValues")
-    public void subValues(@RequestBody CalculatorDto calculatorDto) {
+    public double subValues(@RequestBody CalculatorDto calculatorDto) {
         System.out.println("value1 - value2 = " + calculatorDto.sub(calculatorDto.getValue1(), calculatorDto.getValue2()));
         publisher.publishEvent(
                 new CalculatorRegisteredEvent(
@@ -34,10 +35,11 @@ public class CalculatorController implements ApplicationEventPublisherAware {
                         calculatorDto.getValue1(),
                         calculatorDto.getValue2(),
                         calculatorDto.getOperation()));
+        return calculatorDto.sub(calculatorDto.getValue1(), calculatorDto.getValue2());
     }
 
     @PostMapping(path = "divValues")
-    public void divValues(@RequestBody CalculatorDto calculatorDto) {
+    public double divValues(@RequestBody CalculatorDto calculatorDto) {
         System.out.println("value1 / value2 = "  + calculatorDto.div(calculatorDto.getValue1(), calculatorDto.getValue2()));
         publisher.publishEvent(
                 new CalculatorRegisteredEvent(
@@ -45,10 +47,11 @@ public class CalculatorController implements ApplicationEventPublisherAware {
                         calculatorDto.getValue1(),
                         calculatorDto.getValue2(),
                         calculatorDto.getOperation()));
+        return calculatorDto.div(calculatorDto.getValue1(), calculatorDto.getValue2());
     }
 
     @PostMapping(path = "mulValues")
-    public void mulValues(@RequestBody CalculatorDto calculatorDto) {
+    public double mulValues(@RequestBody CalculatorDto calculatorDto) {
         System.out.println("value1 * value2 = " + calculatorDto.mul(calculatorDto.getValue1(), calculatorDto.getValue2()));
         publisher.publishEvent(
                 new CalculatorRegisteredEvent(
@@ -56,6 +59,7 @@ public class CalculatorController implements ApplicationEventPublisherAware {
                         calculatorDto.getValue1(),
                         calculatorDto.getValue2(),
                         calculatorDto.getOperation()));
+        return calculatorDto.mul(calculatorDto.getValue1(), calculatorDto.getValue2());
     }
 
     @Override
